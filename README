@@ -1,0 +1,7 @@
+== SyncMonitor ==
+
+Tool to check whether a OpenLDAP consumer is in-sync with a provider.
+
+The provider has to implement accesslog.
+
+It is intended to be run from crontab.
