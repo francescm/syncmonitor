@@ -14,7 +14,7 @@ describe ConsumerReader do
     expect consumer_reader
   end
 
-  it "is able to check audit and returns true" do
+  it "is able to check audit with = op" do
     conn = double("conn")
     audits = [{"reqDN" => ["uid=200001,ou=people,dc=unimore,dc=it"],
                "reqMod" => ["sambaPwdLastSet:= 1402905645"]
@@ -24,4 +24,18 @@ describe ConsumerReader do
     ret = consumer_reader.check_audit(audits.first)
     expect(ret).to be true
   end
+
+  it "is able to check audit with - op" do
+    conn = double("conn")
+    attr = "unimorecorscodicestato"
+    audits = [{"reqDN" => ["uid=200001,ou=people,dc=unimore,dc=it"],
+                "reqMod" => ["#{attr}:-"]
+             }]
+    expect(conn).to receive(:search2).with("ou=people,dc=unimore,dc=it", LDAP::LDAP_SCOPE_SUBTREE, "uid=200001", [ attr ]).and_return([])
+    consumer_reader = ConsumerReader.new(conn, @logger)
+    ret = consumer_reader.check_audit(audits.first)
+    expect(ret).to be true
+  end
+
+
 end

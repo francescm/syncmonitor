@@ -15,18 +15,18 @@ class ConsumerReader
       attr, op_target = mod.split(":")
       operation = op_target[0, 1]
       target = op_target[2..-1]
-      value = @conn.search2(basename, LDAP::LDAP_SCOPE_SUBTREE, rdn, [ attr ]).first
+      value = @conn.search2(basename, LDAP::LDAP_SCOPE_SUBTREE, rdn, [ attr ])
       if ["=", "+"].include? operation
-        if value[attr].include? target
+        if value.first[attr].include? target
           true
         else
           return fail(attr, target, value)
         end
       elsif operation.eql? "-"
-        if value[attr].include? target
-          return fail(attr, target, value)
-        else
+        if value.empty?
           true
+        else
+          return fail(attr, target, value)
         end
       end        
     end
