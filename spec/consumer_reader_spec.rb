@@ -5,7 +5,7 @@ require 'ldap'
 
 describe ConsumerReader do
   before(:each) do
-    logger = double("logger")
+    @logger = double("logger")
   end
 
   it "inizializes with a conn and a logger" do

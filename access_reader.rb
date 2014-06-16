@@ -2,9 +2,10 @@
 
 class AccessReader
 #  attr_reader :audits
-  def initialize(conn, time_shift)
+  def initialize(conn, time_shift, logger)
     @conn = conn
     @time_shift = time_shift
+    @logger = logger
   end
   
   def read_audits
