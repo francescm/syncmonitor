@@ -6,6 +6,7 @@ require 'rake'
 require 'rspec/core/rake_task'
 require 'access_reader'
 require 'logger'
+require 'init_factory'
 
 task :default => [:sync_monit]
 
