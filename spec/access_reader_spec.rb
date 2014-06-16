@@ -17,10 +17,10 @@ describe AccessReader do
 
   it "is able to read audits and return an array" do
     #five minutes ago
-    time_shift = (Time.now - 300).utc.strftime("%Y%m%d%H%M%S.000000Z")
+    timeshift = (Time.now - 300).utc.strftime("%Y%m%d%H%M%S.000000Z")
     conn = double("conn")
-    expect(conn).to receive(:search2).with("cn=accesslog", LDAP::LDAP_SCOPE_SUBTREE, "(&(reqResult=0)(reqStart>=#{time_shift}))", ["reqStart", "reqDn", "reqMod"]).and_return([])
-    access_reader = AccessReader.new(conn, time_shift, @logger)
+    expect(conn).to receive(:search2).with("cn=accesslog", LDAP::LDAP_SCOPE_SUBTREE, "(&(reqResult=0)(reqStart>=#{timeshift}))", ["reqStart", "reqDn", "reqMod"]).and_return([])
+    access_reader = AccessReader.new(conn, timeshift, @logger)
     audits = access_reader.read_audits
     expect(audits).to be_a Array
   end

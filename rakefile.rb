@@ -5,17 +5,21 @@ $:.unshift "."
 require 'rake'
 require 'rspec/core/rake_task'
 require 'access_reader'
+require 'logger'
 
-task :default => [:inventory_charges]
+task :default => [:sync_monit]
 
 RSpec::Core::RakeTask.new(:spec) 
 
 desc "run spec"
 task :rspec => :spec
 
-desc "inventario degli incarichi U-GOV"
-task :inventory_charges do
-#  i = Inventory.new
-#  charges = i.load_charges
-#  pp charges
+desc "monit sync producer -> consumer"
+task :sync_monit do
+  logger = Logger.new('sync.log')
+  factory = InitFactory.new
+  producer = factory.producer
+  consumer = factory.consumer
+  timeshift = factory.timeshift
+  
 end

@@ -2,13 +2,13 @@
 
 class AccessReader
 #  attr_reader :audits
-  def initialize(conn, time_shift, logger)
+  def initialize(conn, timeshift, logger)
     @conn = conn
-    @time_shift = time_shift
+    @timeshift = timeshift
     @logger = logger
   end
   
   def read_audits
-    audits = @conn.search2("cn=accesslog", LDAP::LDAP_SCOPE_SUBTREE, "(&(reqResult=0)(reqStart>=#{@time_shift}))", ["reqStart", "reqDn", "reqMod"])   
+    audits = @conn.search2("cn=accesslog", LDAP::LDAP_SCOPE_SUBTREE, "(&(reqResult=0)(reqStart>=#{@timeshift}))", ["reqStart", "reqDn", "reqMod"])   
   end
 end
