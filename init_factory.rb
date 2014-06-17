@@ -8,7 +8,7 @@ class InitFactory
   attr_reader :consumer, :producer, :timeshift
 
   def initialize
-    raise "missing config.yaml" unless File.exists?("config.yaml")
+    raise "missing config.yaml, please customize and rename provided config.yaml-dist" unless File.exists?("config.yaml")
     configs = YAML.load_file("config.yaml")
     prod = configs[:producer]
     @producer = LDAP::SSLConn.new(prod[:url], 389, true)
