@@ -26,4 +26,15 @@ class InitFactory
                    (Time.now - 3600).utc.strftime("%Y%m%d%H%M%S.000000Z")
                  end
   end
+
+  def save_timeshift
+    f = File.new("config.yaml")
+    content = YAML.load_file f
+    f.close
+    f = File.new("config.yaml", "w")
+    content[:timeshift] = Time.now.utc.strftime("%Y%m%d%H%M%S.000000Z")
+    YAML.dump(content, f)
+    f.flush
+    f.close
+  end
 end
