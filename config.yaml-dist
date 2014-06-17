@@ -1,0 +1,10 @@
+---
+:producer:
+  :url: ldap.example.org
+  :bind_dn: cn=syncmon,ou=agents,dc=example,dc=org
+  :bind_pw: secret
+:consumer:
+  :url: omnibus.example.org
+  :bind_dn: cn=syncmon,ou=agents,dc=example,dc=org
+  :bind_pw: secret
+:timeshift: 20140616061126.000002Z
